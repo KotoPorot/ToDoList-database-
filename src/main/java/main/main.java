@@ -6,4 +6,3 @@ public class main {
         UserInterface.startProgramMenu();
         }
 }
-1
