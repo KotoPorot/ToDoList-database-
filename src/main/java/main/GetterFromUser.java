@@ -3,9 +3,9 @@ package main;
 import java.util.Scanner;
 
 public class GetterFromUser {
-    private final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public int getInt() {
+    public static int getInt() {
         if (scanner.hasNextInt()) {
             int action = scanner.nextInt();
             scanner.nextLine();
@@ -17,7 +17,7 @@ public class GetterFromUser {
         }
     }
 
-    public String getString() {
+    public static String getString() {
         String input = scanner.nextLine().trim();
         if (!input.isEmpty()) {
             return input;
@@ -27,13 +27,16 @@ public class GetterFromUser {
         }
     }
 
-    public int getID() {
+    public static int getID(String str) {
         int ID = 0;
         ListWorker listWorker = new ListWorker();
         do {
-            System.out.println("Enter task ID to change: ");
+            System.out.println(str+"\n if you want to close app enter 0");
             ID = getInt();
-            if (!listWorker.idCheck(ID)) {
+            if (ID==0){
+                ActionPerformer ender = new ActionPerformer();
+                ender.end();
+            } else if (!listWorker.idCheck(ID)) {
                 System.out.println("Wrong ID, try again!");
                 continue;
             }
@@ -41,7 +44,7 @@ public class GetterFromUser {
         return ID;
     }
 
-    public Status getStatus() {
+    public static Status getStatus() {
         int statusNumber = getInt();
 
         switch (statusNumber) {
@@ -62,7 +65,14 @@ public class GetterFromUser {
         }
     }
 
-
+    public static void closeGetter(){
+        try {
+            scanner.close();
+            System.out.println("Scanner has been closed");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

@@ -6,9 +6,27 @@ public class Navigator {
 
     public void startmenuNavigator(int action) {
         switch (action) {
-            case 1 -> actionPerformer.printAllTasks();
-            case 2 -> actionPerformer.markAsDone();
-            case 3 -> UserInterface.changeTaskMenu();
+            case 1 -> {
+                actionPerformer.printAllTasks();
+                UserInterface.continueMenu();
+            }
+            case 2 -> {
+                actionPerformer.markAsDone();
+                UserInterface.continueMenu();
+            }
+            case 3 -> {
+                UserInterface.changeTaskMenu();
+                UserInterface.continueMenu();
+            }
+            case 4 -> {
+                actionPerformer.deleteTask();
+                UserInterface.continueMenu();
+            }
+            case 5 -> {
+                actionPerformer.addTask();
+                UserInterface.continueMenu();
+            }
+            case 6 -> actionPerformer.end();
 
         }
 

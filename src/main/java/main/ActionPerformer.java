@@ -5,16 +5,18 @@ public class ActionPerformer {
     private static ListWorker listWorker = new ListWorker();
 
     public void end() {
+        Conector.closeConnection();
+        GetterFromUser.closeGetter();
         System.out.println("thanks!");
+        System.exit(0);
     }
 
     public void printAllTasks() {
         listWorker.printGroupOfTasks(null);
-        UserInterface.startProgramMenu();
     }
 
     public void markAsDone() {
-        int id, action;
+        int id;
         boolean isTrueId = false;
 
         do {
@@ -33,11 +35,10 @@ public class ActionPerformer {
 
         listWorker.changeStatus(id, Status.DONE);
         System.out.println("Status has been updated");
-        UserInterface.continueMenu();
     }
 
     public void changeTaskName() {
-        int ID = getter.getID();
+        int ID = getter.getID("Enter task ID to change name");
         System.out.println("Enter new task name");
         String newName = getter.getString();
         listWorker.changeName(ID, newName);
@@ -45,7 +46,7 @@ public class ActionPerformer {
     }
 
     public void changeTaskStatus() {
-        int ID = getter.getID();
+        int ID = getter.getID("Enter task ID to change status");
         System.out.println("Enter status number:" +
                 "\n 1. Not started" +
                 "\n 2. Started" +
@@ -56,11 +57,27 @@ public class ActionPerformer {
     }
 
     public void changeDescription() {
-        int ID = getter.getID();
+        int ID = getter.getID("Enter task ID to change description");
         System.out.println("Enter description:");
         String description = getter.getString();
         listWorker.changeDescription(ID, description);
         System.out.println("Description has been updated");
+    }
+
+    public void deleteTask(){
+        int ID = getter.getID("Enter task ID to delete task");
+        String taskName = listWorker.getTaskName(ID);
+        listWorker.deleteTask(ID);
+        System.out.println("task: "+taskName +" has been deleted");
+    }
+
+    public void addTask(){
+        System.out.println("Enter task name: ");
+        String taskName = GetterFromUser.getString();
+        System.out.println("Enter task description");
+        String taskDescription= GetterFromUser.getString();
+        listWorker.addTask(taskName, taskDescription);
+        System.out.println("Done!");
     }
 
 }

@@ -38,8 +38,6 @@ public class UserInterface {
             }
         } while (!isTrueNumber);
 
-        continueMenu();
-
     }
 
     public static void continueMenu(){
@@ -48,10 +46,12 @@ public class UserInterface {
         if (action == 1) {
             UserInterface.startProgramMenu();
         } else {
-            System.out.println("Bye!");
+           ActionPerformer ender = new ActionPerformer();
+           ender.end();
         }
 
     }
+
 }
 
 

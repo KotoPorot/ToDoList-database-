@@ -10,7 +10,7 @@ public class ListWorker {
 
     public void addTask(String task) {
         String query = "insert into tasks(taskName) values(?)";
-        try (PreparedStatement ps = conector.getConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = Conector.getConnection().prepareStatement(query)) {
             ps.setString(1, task);
             ps.execute();
         } catch (SQLException e) {
@@ -49,7 +49,8 @@ public class ListWorker {
                 while (res.next()) {
                     System.out.println("ID: " + res.getInt("idtasks") +
                             "\n NAME: " + res.getString("taskName") +
-                            "\n STATUS: " + res.getString("taskStatus"));
+                            "\n STATUS: " + res.getString("taskStatus") +
+                            "\n Description: " + res.getString("taskDescription"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -61,7 +62,8 @@ public class ListWorker {
                 while (res.next()) {
                     System.out.println("ID: " + res.getInt("idtasks") +
                             "\n NAME: " + res.getString("taskName") +
-                            "\n STATUS: " + res.getString("taskStatus"));
+                            "\n STATUS: " + res.getString("taskStatus") +
+                            "\n Description: " + res.getString("taskDescription"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -149,6 +151,26 @@ public class ListWorker {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String getTaskName(int ID){
+        String query = "Select taskName from tasks where idtasks=?";
+
+        try (PreparedStatement ps = conector.getConnection().prepareStatement(query)) {
+            ps.setInt(1, ID);
+            ResultSet res = ps.executeQuery();
+            if(res.next()){
+            return res.getString("taskName");
+            }else {
+                return null;
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    return "";
+
     }
 
 
